@@ -14,9 +14,9 @@ Außerdem gibt es noch spring cloud services: Eureka Server und Config Server.
 
 ## Was macht das Projekt?
 
-User kann einen neuen Account erstellen, updaten und löschen. User kann auch Produkte in eigenen Warenkorb hinzufügen, bearbeiten und entfernen.  
-Basket-Service dient dazu, dass User den Warenkorb verwalten (einfügen, bearbeiten und entfernen) kann.  
-Product-Service speichert alle Produkte. User kann alle verfügbaren Produkte ansehen.
+User kann einen neuen Account erstellen, updaten und löschen. User kann auch Produkte in eigenen Warenkorb hinzufügen, bearbeiten und entfernen. Das sind die Funktionen von `user-service`.  
+`basket-service` dient dazu, dass User den Warenkorb verwalten (einfügen, bearbeiten und entfernen) kann. Das Service ist die Schnittstelle zwichen `user-service`und `product-service`.  
+`product-service` speichert alle Produkte. User kann direkt alle verfügbaren Produkte ansehen.
 
 ## Wie kann das Projekt gestartet werden?
 
