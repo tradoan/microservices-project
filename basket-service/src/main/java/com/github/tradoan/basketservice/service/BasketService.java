@@ -27,24 +27,20 @@ public class BasketService {
         this.productClient = productClient;
     }
 
-    public List<Basket> getBasketsByUserId(Long userId) {
+    private List<Basket> getBasketsByUserId(Long userId) {
         return basketRepository.findByUserId(userId);
     }
 
-    public List<Basket> getAllBaskets() {
-        return (List<Basket>) basketRepository.findAll();
-    }
-
-    public Basket addNewProductItemForUser(Long userId, Basket basket) {
-        Basket oldBasket = basketRepository.findByUserIdAndProductId(userId, basket.getProductId());
+    public Basket addNewProductItemForUser(Long userId, Basket basketLine) {
+        Basket oldBasket = basketRepository.findByUserIdAndProductId(userId, basketLine.getProductId());
         if(oldBasket != null) {
-            return updateProductItemForUser(userId, basket);
+            return updateProductItemForUser(userId, basketLine);
         }
         else {
             Basket newItem = Basket.builder()
                     .userId((userId))
-                    .productId(basket.getProductId())
-                    .quantity(basket.getQuantity())
+                    .productId(basketLine.getProductId())
+                    .quantity(basketLine.getQuantity())
                     .build();
             return basketRepository.save(newItem);
         }

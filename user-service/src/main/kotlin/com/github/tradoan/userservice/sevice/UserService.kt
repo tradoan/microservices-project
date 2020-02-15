@@ -2,6 +2,7 @@ package com.github.tradoan.userservice.sevice
 
 import com.github.tradoan.userservice.client.BasketClient
 import com.github.tradoan.userservice.entity.Basket
+import com.github.tradoan.userservice.web.dto.BasketDTO
 import com.github.tradoan.userservice.entity.User
 import com.github.tradoan.userservice.web.dto.UserDTO
 import com.github.tradoan.userservice.web.dto.UserToUserDTOMapper
@@ -35,13 +36,14 @@ class UserService(private val userRepository: UserRepository,
 
         var userDTO: UserDTO = userToUserDTOMapper.apply(user)
 
-        var products: MutableSet<Basket>? = basketClient.getProductsOfUser(id)
+        var products: MutableSet<BasketDTO>? = basketClient.getProductsOfUser(id)
 
         userDTO.baskets = products
 
         return userDTO
 
     }
+
 /*
     fun getUserById(id: Long): UserDetail? {
         var user: User = userRepository.findById(id).orElse(null)
@@ -87,5 +89,18 @@ class UserService(private val userRepository: UserRepository,
         }
     }
 
+    @HystrixCommand(fallbackMethod = "notEditBasket")
+    fun addProductIntoBasket(id: Long, basketLine: Basket) = basketClient.addProductForUser(id, basketLine)
+
+    @HystrixCommand(fallbackMethod = "notEditBasket")
+    fun editBasketLine(id: Long, basketLine: Basket) = basketClient.updateBasketForUser(id, basketLine)
+
+    @HystrixCommand(fallbackMethod = "notDeleteProduct")
+    fun deleteBasketLine(id: Long, product_id: Long) = basketClient.deleteProductForUser(id, product_id)
+
     fun notFoundProducts(id: Long) : UserDTO = UserDTO()
+
+    fun notEditBasket(id: Long, basketLine: Basket) : Basket = Basket(-1, -1)
+
+    fun notDeleteProduct(id: Long, product_id: Long) = String.format("Product item with id %s is not found", product_id)
 }

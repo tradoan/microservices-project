@@ -17,16 +17,3 @@ data class User(
         var email: String,
 
         var password: String)
-
-        /*
-        @JsonIgnore
-        @JsonManagedReference
-        @OneToMany(mappedBy = "user", cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
-        var addresses: MutableSet<Address> ?= null) {
-
-        fun addAddress(addr: Address) {
-                addresses?.add(addr)
-        }
-
-}
-         */

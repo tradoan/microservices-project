@@ -28,38 +28,29 @@ public class BasketController {
         this.basketService = basketService;
     }
 
-    @GetMapping("/user/{user-id}")
-    public List<Basket> getAllProductItemsByUser(@PathVariable("user-id") Long id) {
-       return basketService.getBasketsByUserId(id);
+    @PostMapping("/user/{user_id}")
+    public Basket addProductForUser(@PathVariable("user_id") Long id, @RequestBody Basket basketLine) {
+        return basketService.addNewProductItemForUser(id, basketLine);
     }
 
-    @PostMapping("/user/{user-id}")
-    public Basket addProductForUser(@PathVariable("user-id") Long id, @RequestBody Basket basket) {
-        return basketService.addNewProductItemForUser(id, basket);
-    }
-
-    @DeleteMapping("/user/{user-id}/{product-id}")
-    public void deleteProductForUser(@PathVariable("user-id") Long id, @PathVariable("product-id") Long productId) {
+    @DeleteMapping("/user/{user_id}/{product_id}")
+    public String deleteProductForUser(@PathVariable("user_id") Long id, @PathVariable("product_id") Long productId) {
         basketService.deleteProductItem(id, productId);
+        return "Deleted";
     }
 
-    @PutMapping("/user/{user-id}")
-    public Basket updateBasketForUser(@PathVariable("user-id") Long userId, @RequestBody Basket basket) {
+    @PutMapping("/user/{user_id}")
+    public Basket updateBasketForUser(@PathVariable("user_id") Long userId, @RequestBody Basket basket) {
         return basketService.updateProductItemForUser(userId, basket);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteItem(@RequestBody Basket basket) {
-        basketService.deleteProductItem(basket.getUserId(), basket.getProductId());
-    }
-
-    @GetMapping("/{item-id}/product/")
-    public Product getProductForItem(@PathVariable("item-id") Long id) {
+    @GetMapping("/product/{product_id}")
+    public Product getProductForItem(@PathVariable("product_id") Long id) {
         return basketService.getProductFromItem(id);
     }
 
-    @GetMapping("/user/{user-id}/products")
-    public List<BasketDTO> getProductsOfUser(@PathVariable("user-id") Long id) {
+    @GetMapping("/user/{user_id}/products")
+    public List<BasketDTO> getProductsOfUser(@PathVariable("user_id") Long id) {
         return basketService.getProductsForUser(id);
     }
 }

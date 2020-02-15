@@ -17,8 +17,4 @@ public class BasketDTO{
     Long id;
     Integer quantity;
     Product product;
-
-    public Double getTotalPrice() {
-        return this.quantity * this.product.price;
-    }
 }

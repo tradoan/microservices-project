@@ -1,10 +1,9 @@
-# base image
-FROM openjdk:11
+FROM hirokimatsumoto/alpine-openjdk-11
 
 VOLUME /tmp
 
-EXPOSE 80
+EXPOSE 8761
 
-COPY target/*.jar cloud-server.jar
+COPY target/*.jar eureka-discovery.jar
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "cloud-server.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/eureka-discovery.jar"]

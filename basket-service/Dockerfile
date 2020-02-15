@@ -3,7 +3,7 @@ FROM openjdk:11
 
 VOLUME /tmp
 
-EXPOSE 80
+EXPOSE 8083
 
 COPY target/*.jar basket-service.jar
 

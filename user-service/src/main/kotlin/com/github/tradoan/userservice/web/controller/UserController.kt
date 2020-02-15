@@ -1,5 +1,6 @@
 package com.github.tradoan.userservice.web.controller
 
+import com.github.tradoan.userservice.entity.Basket
 import com.github.tradoan.userservice.entity.User
 import com.github.tradoan.userservice.sevice.UserService
 import org.springframework.http.HttpStatus
@@ -9,13 +10,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/user")
-class UserController (private val userService: UserService) {
-
-    /*
-    @Value("\${spring.additional.application.name}")
-    lateinit var customWelcomeController: String
-
-     */
+class UserController(private val userService: UserService) {
 
     @GetMapping("/{id}")
     fun getUser(@PathVariable id: Long) = ResponseEntity.ok(this.userService.getUserById(id))
@@ -36,16 +31,13 @@ class UserController (private val userService: UserService) {
 
     @PostMapping("/login")
     fun login(@RequestBody user: User) = ResponseEntity.ok(userService.login(user))
-}
 
-    /*
-    @GetMapping("createMeHard!")
-    fun createRandomeUsers(): Int{
-        var  result = User()
-        for (i in 0..10) {
-            result.lastName = UUID.randomUUID().toString()
-            userService.createNewUser(result)
-        }
-        return 200
-    }
-     */
+    @PostMapping("/{id}/basket")
+    fun addProductIntoBasket(@PathVariable id: Long, @RequestBody basketLine: Basket) = userService.addProductIntoBasket(id, basketLine)
+
+    @PutMapping("/{id}/basket")
+    fun updateBasketLine(@PathVariable id: Long, @RequestBody basketLine: Basket) = userService.editBasketLine(id, basketLine)
+
+    @DeleteMapping("/{id}/basket/{product_id}")
+    fun deleteBasketLine(@PathVariable id: Long, @PathVariable product_id: Long) = userService.deleteBasketLine(id, product_id)
+}

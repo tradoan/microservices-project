@@ -1,12 +1,9 @@
-# base image
-FROM openjdk:11
+FROM hirokimatsumoto/alpine-openjdk-11
 
 VOLUME /tmp
 
-EXPOSE 80
+EXPOSE 8888
 
-COPY target/*.jar config.jar
+COPY target/*.jar config-server.jar
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "config.jar"]
-
-# container port is the port of profile mysql "-Dspring.profiles.active=dev,mysql"
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/config-server.jar"]
