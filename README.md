@@ -22,4 +22,4 @@ Der User kann einen neuen Account erstellen, updaten und löschen. Er kann auch 
 
 1. Starte `config-server` auf Port `8888`
 2. Starte `eureka-server` auf Port `8761`
-3. Starte `user-service` auf Port `8081`, `product-service`auf Port 8082 und `basket-service` auf Port `8083`. Mann kann es mit `h2`-Profile testen. Das ist als Default in "bootstrap.properties" aktiviert. 
+3. Starte `user-service` auf Port `8081`, `product-service`auf Port 8082 und `basket-service` auf Port `8083`. Man kann es mit `h2`-Profile testen. Das ist als Default in "bootstrap.properties" aktiviert. 
